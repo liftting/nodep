@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bootstrap 实例</title>
+    <link rel='stylesheet' href='/bootstrap/css/bootstrap.css'/>
+    <script src="/javascript/jquery-3.2.1.js"></script>
+</head>
+<body>
+
+<table class="table table-hover">
+    <caption>数据</caption>
+    <thead>
+    <tr>
+        <th>id</th>
+        <th>名称</th>
+        <th>区域</th>
+        <th>面积</th>
+        <th>年龄</th>
+        <th>总价</th>
+        <th>楼层位置</th>
+        <th>朝向</th>
+        <th>描述</th>
+        <th>日期</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!--填充表格数据-->
+    {% for he in hourse %}
+    <tr>
+        <td>
+            <a href='https://bj.lianjia.com/ershoufang/{{ he.he_id }}.html' target="_blank">{{ he.he_id }}</a>
+        </td>
+        <td>{{ he.he_hourse_name }}</td>
+        <td>{{ he.he_large_position }}</td>
+        <td>{{ he.he_hourse_area }}</td>
+        <td>
+            {% if he.he_age_type == '3' %}
+            满5年
+            {% elseif he.he_age_type == '2' %}
+            满2年
+            {% else %}
+            未满2
+            {% endif %}
+        </td>
+        <td>{{ he.he_price_total }}</td>
+        <td>{{ he.he_position }}</td>
+        <td>{{ he.he_hourse_dir }}</td>
+        <td>{{ he.he_desc }}</td>
+
+
+        <td>{{ he.he_price_time }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+</body>
