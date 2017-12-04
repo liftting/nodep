@@ -1,11 +1,93 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Bootstrap 实例</title>
+    <title>hourse</title>
     <link rel='stylesheet' href='/bootstrap/css/bootstrap.css'/>
     <script src="/javascript/jquery-3.2.1.js"></script>
+    <script src="/bootstrap/js/bootstrap.js"></script>
+    <script src="/bootstrap/js/bootstrap-datetimepicker.min.js"></script>
+    <link rel='stylesheet' href='/bootstrap/css/bootstrap-datetimepicker.min.css'/>
+
 </head>
+
 <body>
+
+<div class="dropdown">
+
+
+    <button type="button" class="btn dropdown-toggle" id="dropdownMenu1"
+            data-toggle="dropdown">
+        区域选择
+        <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+        <li role="presentation">
+            <a role="menuitem" tabindex="-1" href="/hourse?dn=shunyi">顺义</a>
+        </li>
+        <li role="presentation">
+            <a role="menuitem" tabindex="-1" href="/hourse?dn=changping">昌平</a>
+        </li>
+        <li role="presentation">
+            <a role="menuitem" tabindex="-1" href="/hourse?dn=shijingshan">石景山</a>
+        </li>
+        <li role="presentation">
+            <a role="menuitem" tabindex="-1" href="/hourse?dn=fengtai">丰台</a>
+        </li>
+        <li role="presentation">
+            <a role="menuitem" tabindex="-1" href="/hourse?dn=tongzhou">通州</a>
+        </li>
+    </ul>
+
+</div>
+
+<!--<div>-->
+    <!--<input type="text" value="2012-05-15" id="date_time_search">-->
+    <!--<button type="button" class="btn btn-primary" id="btn_search_all"-->
+            <!--data-toggle="button"> 查询-->
+    <!--</button>-->
+<!--</div>-->
+
+
+<script type="text/javascript">
+
+    /**
+     * 获取当前时间标记
+     * @returns {string}
+     */
+    function getNowFormatDate() {
+        var date = new Date();
+        var seperator1 = "-";
+        var seperator2 = ":";
+        var month = date.getMonth() + 1;
+        var strDate = date.getDate();
+        if (month >= 1 && month <= 9) {
+            month = "0" + month;
+        }
+        if (strDate >= 0 && strDate <= 9) {
+            strDate = "0" + strDate;
+        }
+        var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate
+            + " " + date.getHours() + seperator2 + date.getMinutes()
+            + seperator2 + date.getSeconds();
+        return currentdate;
+    }
+
+    var nowdate = getNowFormatDate();
+
+    $('#date_time_search').val(nowdate);
+
+    $('#date_time_search')
+        .datetimepicker({
+            format: "yyyy-mm-dd - hh:ii",
+            autoclose: true,
+            todayBtn: true,
+            pickerPosition: "bottom-right"
+        });
+
+    $('#btn_search_all').click(function () {
+    });
+
+</script>
 
 <table class="table table-hover">
     <caption>数据</caption>
