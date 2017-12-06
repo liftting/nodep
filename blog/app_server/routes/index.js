@@ -37,7 +37,6 @@ function getSearchDate() {
         strDate = "0" + strDate;
     }
     var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate;
-    currentdate = "20171121";
     return currentdate;
 }
 
