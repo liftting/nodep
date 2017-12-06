@@ -37,6 +37,7 @@ function getSearchDate() {
         strDate = "0" + strDate;
     }
     var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate;
+    currentdate = "20171121";
     return currentdate;
 }
 
@@ -49,7 +50,7 @@ function loadHourseInfo(pageRes, dbname, curdate) {
     db.all(createQuerySql(curdate), function (err, data) {
         console.log("has receive callback")
         if (!err) {
-            pageRes.render("hourse", {hourse: data});
+            pageRes.render("aui/hourse", {hourse: data});
         }
         else {
             console.log(err);

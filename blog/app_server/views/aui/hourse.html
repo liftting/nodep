@@ -1,0 +1,90 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="/aui/css/aui.css"/>
+    <style type="text/css">
+        .header {
+            padding: 2.5rem 0.5rem 2rem 0.5rem;
+        }
+    </style>
+    <script type="text/javascript" src="/aui/script/api.js"></script>
+    <script type="text/javascript" src="/aui/script/aui-popup.js"></script>
+</head>
+<body>
+<header class="aui-bar aui-bar-nav">
+    <a class="aui-pull-left aui-btn">
+        <span class="aui-iconfont aui-icon-left"></span>
+    </a>
+    <div class="aui-title">列表信息</div>
+    <a class="aui-pull-right aui-btn aui-btn-outlined">
+        <div class="aui-btn aui-btn-primary" aui-popup-for="top">选择</div>
+    </a>
+</header>
+<!--选择框-->
+
+<div class="aui-popup aui-popup-top" id="top">
+    <div class="aui-popup-arrow"></div>
+    <div class="aui-popup-content">
+        <ul class="aui-list aui-list-noborder">
+            <li class="aui-list-item">
+                <a class="aui-list-item-inner aui-list-item-middle" href="/hourse?dn=shunyi">
+                    顺义
+                </a>
+            </li>
+            <li class="aui-list-item">
+                <a class="aui-list-item-inner aui-list-item-middle" href="/hourse?dn=changping">
+                    昌平
+                </a>
+            </li>
+            <li class="aui-list-item">
+                <a class="aui-list-item-inner aui-list-item-middle" href="/hourse?dn=tongzhou">
+                    通州
+                </a>
+            </li>
+            <!--<li class="aui-list-item">-->
+            <!--<div class="aui-list-item-inner">-->
+            <!--我的收藏-->
+            <!--</div>-->
+            <!--</li>-->
+        </ul>
+    </div>
+</div>
+<!--数据构造-->
+{% for he in hourse %}
+<section class="aui-content-padded">
+    <div class="aui-card-list">
+        <div class="aui-card-list-header">
+            <a href='https://bj.lianjia.com/ershoufang/{{ he.he_id }}.html' target="_blank">{{ he.he_hourse_name }}</a>
+            {{ he.he_large_position }}
+        </div>
+        <div class="aui-card-list-content-padded">
+            {{ he.he_hourse_area }}
+            {{ he.he_price_total }}
+            {{ he.he_position }}
+            {{ he.he_hourse_dir }}
+
+
+        </div>
+        <div class="aui-card-list-footer">
+            <!--{{ he.he_price_time }}-->
+            {{ he.he_desc }}
+        </div>
+    </div>
+</section>
+
+{% endfor %}
+<script type="text/javascript">
+    var popup = new auiPopup();
+
+    function showPopup() {
+        popup.show(document.getElementById("top-left"))
+    }
+</script>
+
+</body>
+
+</html>
