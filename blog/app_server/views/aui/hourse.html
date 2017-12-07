@@ -64,29 +64,39 @@
     </div>
 </div>
 <!--数据构造-->
-{% for he in hourse %}
-<section class="aui-content-padded">
-    <div class="aui-card-list">
-        <div class="aui-card-list-header">
-            <a href='https://bj.lianjia.com/ershoufang/{{ he.he_id }}.html' target="_blank">{{ he.he_hourse_name }}</a>
-            {{ he.he_large_position }}
-        </div>
-        <div class="aui-card-list-content-padded">
-            {{ he.he_hourse_area }}
-            {{ he.he_price_total }}
-            {{ he.he_position }}
-            {{ he.he_hourse_dir }}
+{% for i in data.keySet() %}
+    <section class=".aui-row">
+        <section class="aui-content-padded">
+            <p class=".aui-text-primary">{{ i }}</p>
+        </section>
+        {% for he in data.get(i) %}
+            <section class="aui-content-padded">
+                <div class="aui-card-list">
+                    <div class="aui-card-list-header">
+                        <a href='https://bj.lianjia.com/ershoufang/{{ he.he_id }}.html' target="_blank">{{ he.he_hourse_name }}</a>
+                        <section class="aui-content-padded">
+                            <p class=".aui-text-purple">{{ he.he_large_position }}</p>
+                        </section>
+                    </div>
+                    <div class="aui-card-list-content-padded">
+                        {{ he.he_hourse_area }}
+                        {{ he.he_price_total }}
+                        {{ he.he_position }}
+                        {{ he.he_hourse_dir }}
 
 
-        </div>
-        <div class="aui-card-list-footer">
-            <!--{{ he.he_price_time }}-->
-            {{ he.he_desc }}
-        </div>
-    </div>
-</section>
+                    </div>
+                    <div class="aui-card-list-footer">
+                        <!--{{ he.he_price_time }}-->
+                        {{ he.he_desc }}
+                    </div>
+                </div>
+            </section>
+        {% endfor %}
+    </section>
 
 {% endfor %}
+
 <script type="text/javascript">
     var popup = new auiPopup();
 

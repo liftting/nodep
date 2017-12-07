@@ -10,7 +10,9 @@ router.get('/', function (req, res, next) {
 });
 
 router.get('/main', function (req, res) {
-    res.render('main');
+    var map = new HashMap();
+    map.put("key", [{name: 'say hello'}, {name: 'again say'}]);
+    res.render('main', {data: map});
 });
 
 router.get('/hourse', function (req, res, next) {
@@ -37,6 +39,7 @@ function getSearchDate() {
         strDate = "0" + strDate;
     }
     var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate;
+    currentdate = "20171121";
     return currentdate;
 }
 
@@ -48,8 +51,12 @@ function loadHourseInfo(pageRes, dbname, curdate) {
 
     db.all(createQuerySql(curdate), function (err, data) {
         console.log("has receive callback")
+
+        var map = operateData(data);
+
         if (!err) {
-            pageRes.render("aui/hourse", {hourse: data});
+            pageRes.render("aui/hourse", {data: map});
+            // pageRes.render("main", {data: map});
         }
         else {
             console.log(err);
@@ -72,18 +79,127 @@ function createQuerySql(curdate) {
 }
 
 /**
- *  hourse 信息类
- * @constructor
+ * 在处理数据
+ * HashMap<String,List>
+ * @param data
  */
-function HourseInfo() {
-    var he_id;
-    var he_hourse_name;
-    var he_hourse_area;
-    var he_age;
-    var he_price_total;
+function operateData(data) {
 
+    var map = new HashMap();
+
+    //遍历数据
+    for (var i in data) {
+        var largeName = data[i].he_large_position;
+        if (map.containsKey(largeName)) {
+            //包含
+            var array = map.get(largeName);
+            array.push(data[i]);
+        } else {
+            var ary = new Array();
+            ary.push(data[i]);
+            map.put(largeName, ary);
+        }
+    }
+
+    return map;
 
 }
 
+function HashMap() {
+    //定义长度
+    var length = 0;
+    //创建一个对象
+    var obj = new Object();
+
+    /**
+     * 判断Map是否为空
+     */
+    this.isEmpty = function () {
+        return length == 0;
+    };
+
+    /**
+     * 判断对象中是否包含给定Key
+     */
+    this.containsKey = function (key) {
+        return (key in obj);
+    };
+
+    /**
+     * 判断对象中是否包含给定的Value
+     */
+    this.containsValue = function (value) {
+        for (var key in obj) {
+            if (obj[key] == value) {
+                return true;
+            }
+        }
+        return false;
+    };
+
+    /**
+     *向map中添加数据
+     */
+    this.put = function (key, value) {
+        if (!this.containsKey(key)) {
+            length++;
+        }
+        obj[key] = value;
+    };
+
+    /**
+     * 根据给定的Key获得Value
+     */
+    this.get = function (key) {
+        return this.containsKey(key) ? obj[key] : null;
+    };
+
+    /**
+     * 根据给定的Key删除一个值
+     */
+    this.remove = function (key) {
+        if (this.containsKey(key) && (delete obj[key])) {
+            length--;
+        }
+    };
+
+    /**
+     * 获得Map中的所有Value
+     */
+    this.values = function () {
+        var _values = new Array();
+        for (var key in obj) {
+            _values.push(obj[key]);
+        }
+        return _values;
+    };
+
+    /**
+     * 获得Map中的所有Key
+     */
+    this.keySet = function () {
+        var _keys = new Array();
+        for (var key in obj) {
+            _keys.push(key);
+        }
+        return _keys;
+    };
+
+    /**
+     * 获得Map的长度
+     */
+    this.size = function () {
+        return length;
+    };
+
+    /**
+     * 清空Map
+     */
+    this.clear = function () {
+        length = 0;
+        obj = new Object();
+    };
+
+}
 
 module.exports = router;
